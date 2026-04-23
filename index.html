@@ -6,341 +6,61 @@
 <title>AI Companion — Literature Review</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,600;6..12,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,600&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #f9f8f5;
-  --surface: #ffffff;
-  --text: #1a1917;
-  --text-2: #68645f;
-  --text-3: #a09b95;
-  --border: #e8e3da;
-  --border-2: #d5cfc5;
-  --serif: 'Spectral', Georgia, serif;
-  --sans: 'Nunito Sans', system-ui, sans-serif;
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: var(--sans);
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.65;
-  font-size: 15px;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* ── HEADER ─────────────────────────────────────────── */
-.site-header {
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  padding: 3.5rem 0 3rem;
-}
-.inner {
-  max-width: 1040px;
-  margin: 0 auto;
-  padding: 0 2.5rem;
-}
-.header-eyebrow {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-3);
-  margin-bottom: 1rem;
-}
-.site-title {
-  font-family: var(--serif);
-  font-size: clamp(2rem, 5vw, 3.25rem);
-  font-weight: 600;
-  color: var(--text);
-  line-height: 1.1;
-  margin-bottom: 1rem;
-  letter-spacing: -0.01em;
-}
-.site-desc {
-  font-size: 0.95rem;
-  color: var(--text-2);
-  max-width: 540px;
-  line-height: 1.7;
-  margin-bottom: 2.25rem;
-}
-.stats-row {
-  display: flex;
-  gap: 0;
-  flex-wrap: wrap;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  overflow: hidden;
-  width: fit-content;
-}
-.stat {
-  padding: 0.85rem 1.75rem;
-  border-right: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.stat:last-child { border-right: none; }
-.stat-n {
-  font-family: var(--serif);
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: var(--text);
-  line-height: 1;
-}
-.stat-l {
-  font-size: 0.68rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-3);
-}
-
-/* ── CONTROLS BAR ────────────────────────────────────── */
-.controls-bar {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(255,255,255,0.97);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--border);
-  padding: 0.875rem 0;
-}
-.controls-inner {
-  max-width: 1040px;
-  margin: 0 auto;
-  padding: 0 2.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-.search-wrap {
-  position: relative;
-  max-width: 480px;
-}
-.search-icon {
-  position: absolute;
-  left: 11px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 14px;
-  height: 14px;
-  color: var(--text-3);
-  pointer-events: none;
-  flex-shrink: 0;
-}
-#search {
-  width: 100%;
-  padding: 8px 12px 8px 34px;
-  border: 1px solid var(--border-2);
-  border-radius: 6px;
-  font-family: var(--sans);
-  font-size: 0.85rem;
-  color: var(--text);
-  background: var(--bg);
-  outline: none;
-  transition: border-color 0.15s, background 0.15s;
-}
-#search:focus { border-color: #9a9590; background: white; }
-#search::placeholder { color: var(--text-3); }
-.filter-tabs {
-  display: flex;
-  gap: 5px;
-  flex-wrap: wrap;
-  align-items: center;
-}
-.ftab {
-  padding: 3.5px 11px;
-  border: 1px solid var(--border-2);
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-family: var(--sans);
-  font-weight: 400;
-  color: var(--text-2);
-  cursor: pointer;
-  background: transparent;
-  transition: all 0.12s;
-  white-space: nowrap;
-  line-height: 1.5;
-}
-.ftab:hover { background: var(--bg); color: var(--text); border-color: #bbb8b2; }
-.ftab.active-all { background: var(--text); color: white; border-color: var(--text); }
-.ftab .n { font-size: 0.68rem; opacity: 0.7; margin-left: 3px; }
-
-/* ── MAIN ────────────────────────────────────────────── */
-main {
-  max-width: 1040px;
-  margin: 0 auto;
-  padding: 2.25rem 2.5rem 5rem;
-}
-.results-meta {
-  font-size: 0.78rem;
-  color: var(--text-3);
-  margin-bottom: 1.75rem;
-  font-style: italic;
-}
-.section-group { margin-bottom: 3rem; }
-.section-heading {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding-bottom: 0.625rem;
-  border-bottom: 1.5px solid var(--border);
-  margin-bottom: 0.25rem;
-}
-.s-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-.s-name {
-  font-size: 0.68rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-}
-.s-count {
-  margin-left: auto;
-  font-size: 0.72rem;
-  color: var(--text-3);
-  font-weight: 400;
-}
-
-/* ── PAPER CARD ──────────────────────────────────────── */
-.paper {
-  display: flex;
-  gap: 0;
-  padding: 1.05rem 0;
-  border-bottom: 1px solid var(--border);
-  transition: background 0.1s;
-}
-.paper:last-child { border-bottom: none; }
-.p-accent {
-  width: 2.5px;
-  border-radius: 2px;
-  flex-shrink: 0;
-  margin-right: 1.1rem;
-  align-self: stretch;
-  min-height: 36px;
-  opacity: 0.9;
-}
-.p-body { flex: 1; min-width: 0; }
-.p-title {
-  font-family: var(--serif);
-  font-size: 0.975rem;
-  font-weight: 400;
-  color: var(--text);
-  line-height: 1.5;
-  margin-bottom: 0.3rem;
-}
-.p-authors {
-  font-size: 0.8rem;
-  color: var(--text-2);
-  margin-bottom: 0.35rem;
-  line-height: 1.4;
-}
-.p-footer {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  flex-wrap: wrap;
-}
-.p-year {
-  font-size: 0.73rem;
-  font-weight: 700;
-  color: var(--text-3);
-}
-.p-type {
-  font-size: 0.67rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 1px 6px;
-  border-radius: 3px;
-  border: 1px solid var(--border-2);
-  color: var(--text-3);
-  background: transparent;
-}
-.p-sec {
-  font-size: 0.67rem;
-  font-weight: 600;
-  padding: 1px 7px;
-  border-radius: 3px;
-}
-.empty {
-  padding: 4rem 0;
-  text-align: center;
-  font-size: 0.9rem;
-  color: var(--text-3);
-  font-style: italic;
-}
-
-/* ── LEGEND ──────────────────────────────────────────── */
-.legend-panel {
-  margin-bottom: 2.5rem;
-  padding: 1.25rem 1.5rem;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--surface);
-}
-.legend-title {
-  font-size: 0.68rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--text-3);
-  margin-bottom: 1rem;
-}
-.legend-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-  gap: 0.5rem 1.5rem;
-}
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  padding: 3px 6px;
-  border-radius: 4px;
-  transition: background 0.1s;
-}
-.legend-item:hover { background: var(--bg); }
-.legend-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-.legend-text {
-  font-size: 0.78rem;
-  color: var(--text-2);
-  line-height: 1.3;
-}
-.legend-n {
-  margin-left: auto;
-  font-size: 0.7rem;
-  color: var(--text-3);
-  flex-shrink: 0;
-}
-
-/* ── FOOTER ──────────────────────────────────────────── */
-footer {
-  border-top: 1px solid var(--border);
-  padding: 1.5rem 2.5rem;
-  text-align: center;
-  font-size: 0.75rem;
-  color: var(--text-3);
-  background: var(--surface);
-}
-
-@media (max-width: 640px) {
-  .inner, .controls-inner, main { padding-left: 1.25rem; padding-right: 1.25rem; }
-  .stats-row { flex-direction: column; width: 100%; }
-  .stat { border-right: none; border-bottom: 1px solid var(--border); }
-  .stat:last-child { border-bottom: none; }
-  .site-title { font-size: 2rem; }
-}
+:root{--bg:#f9f8f5;--surface:#ffffff;--text:#1a1917;--text-2:#68645f;--text-3:#a09b95;--border:#e8e3da;--border-2:#d5cfc5;--serif:'Spectral',Georgia,serif;--sans:'Nunito Sans',system-ui,sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.65;font-size:15px;-webkit-font-smoothing:antialiased}
+.site-header{background:var(--surface);border-bottom:1px solid var(--border);padding:3.5rem 0 3rem}
+.inner{max-width:1040px;margin:0 auto;padding:0 2.5rem}
+.header-eyebrow{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--text-3);margin-bottom:1rem}
+.site-title{font-family:var(--serif);font-size:clamp(2rem,5vw,3.25rem);font-weight:600;color:var(--text);line-height:1.1;margin-bottom:1rem;letter-spacing:-.01em}
+.site-desc{font-size:.95rem;color:var(--text-2);max-width:540px;line-height:1.7;margin-bottom:2.25rem}
+.stats-row{display:flex;gap:0;flex-wrap:wrap;border:1px solid var(--border);border-radius:8px;overflow:hidden;width:fit-content}
+.stat{padding:.85rem 1.75rem;border-right:1px solid var(--border);display:flex;flex-direction:column;gap:2px}
+.stat:last-child{border-right:none}
+.stat-n{font-family:var(--serif);font-size:1.6rem;font-weight:600;color:var(--text);line-height:1}
+.stat-l{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-3)}
+.controls-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);padding:.875rem 0}
+.controls-inner{max-width:1040px;margin:0 auto;padding:0 2.5rem;display:flex;flex-direction:column;gap:.75rem}
+.search-wrap{position:relative;max-width:480px}
+.search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:14px;height:14px;color:var(--text-3);pointer-events:none}
+#search{width:100%;padding:8px 12px 8px 34px;border:1px solid var(--border-2);border-radius:6px;font-family:var(--sans);font-size:.85rem;color:var(--text);background:var(--bg);outline:none;transition:border-color .15s,background .15s}
+#search:focus{border-color:#9a9590;background:white}
+#search::placeholder{color:var(--text-3)}
+.filter-tabs{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+.ftab{padding:3.5px 11px;border:1px solid var(--border-2);border-radius:20px;font-size:.75rem;font-family:var(--sans);font-weight:400;color:var(--text-2);cursor:pointer;background:transparent;transition:all .12s;white-space:nowrap;line-height:1.5}
+.ftab:hover{background:var(--bg);color:var(--text);border-color:#bbb8b2}
+.ftab .n{font-size:.68rem;opacity:.7;margin-left:3px}
+main{max-width:1040px;margin:0 auto;padding:2.25rem 2.5rem 5rem}
+.results-meta{font-size:.78rem;color:var(--text-3);margin-bottom:1.75rem;font-style:italic}
+.legend-panel{margin-bottom:2.5rem;padding:1.25rem 1.5rem;border:1px solid var(--border);border-radius:8px;background:var(--surface)}
+.legend-title{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--text-3);margin-bottom:1rem}
+.legend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:.5rem 1.5rem}
+.legend-item{display:flex;align-items:center;gap:8px;cursor:pointer;padding:3px 6px;border-radius:4px;transition:background .1s}
+.legend-item:hover{background:var(--bg)}
+.legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.legend-text{font-size:.78rem;color:var(--text-2);line-height:1.3}
+.legend-n{margin-left:auto;font-size:.7rem;color:var(--text-3);flex-shrink:0}
+.section-group{margin-bottom:3rem}
+.section-heading{display:flex;align-items:center;gap:10px;padding-bottom:.625rem;border-bottom:1.5px solid var(--border);margin-bottom:.25rem}
+.s-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.s-name{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em}
+.s-count{margin-left:auto;font-size:.72rem;color:var(--text-3);font-weight:400}
+.paper{display:flex;gap:0;padding:1.05rem 0;border-bottom:1px solid var(--border);transition:background .1s}
+.paper:last-child{border-bottom:none}
+.p-accent{width:2.5px;border-radius:2px;flex-shrink:0;margin-right:1.1rem;align-self:stretch;min-height:36px;opacity:.9}
+.p-body{flex:1;min-width:0}
+.p-title{font-family:var(--serif);font-size:.975rem;font-weight:400;color:var(--text);line-height:1.5;margin-bottom:.3rem}
+.p-authors{font-size:.8rem;color:var(--text-2);margin-bottom:.35rem;line-height:1.4}
+.p-footer{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.p-year{font-size:.73rem;font-weight:700;color:var(--text-3)}
+.p-sec{font-size:.67rem;font-weight:600;padding:1px 7px;border-radius:3px}
+.doi-link{font-size:.67rem;padding:1px 6px;border-radius:3px;text-decoration:none;transition:opacity .1s}
+.doi-link:hover{opacity:.75}
+.empty{padding:4rem 0;text-align:center;font-size:.9rem;color:var(--text-3);font-style:italic}
+footer{border-top:1px solid var(--border);padding:1.5rem 2.5rem;text-align:center;font-size:.75rem;color:var(--text-3);background:var(--surface)}
+@media(max-width:640px){.inner,.controls-inner,main{padding-left:1.25rem;padding-right:1.25rem}.stats-row{flex-direction:column;width:100%}.stat{border-right:none;border-bottom:1px solid var(--border)}.stat:last-child{border-bottom:none}.site-title{font-size:2rem}}
 </style>
 </head>
 <body>
@@ -349,11 +69,12 @@ footer {
   <div class="inner">
     <p class="header-eyebrow">Broad Literature Review</p>
     <h1 class="site-title">AI Companion<br>Research Archive</h1>
-    <p class="site-desc">A curated reading list covering human–AI companionship, social chatbots, relational agents, and the psychological, social, and ethical dimensions of human–AI relationships.</p>
+    <p class="site-desc">A curated reading list covering human–AI companionship, social chatbots, relational agents, and the psychological, social, and ethical dimensions of human–AI relationships — with a focus on adolescents and socio-emotional wellbeing.</p>
     <div class="stats-row">
-      <div class="stat"><span class="stat-n">102</span><span class="stat-l">Papers</span></div>
-      <div class="stat"><span class="stat-n">9</span><span class="stat-l">Sections</span></div>
+      <div class="stat"><span class="stat-n">166</span><span class="stat-l">Papers</span></div>
+      <div class="stat"><span class="stat-n">10</span><span class="stat-l">Sections</span></div>
       <div class="stat"><span class="stat-n">1987–2026</span><span class="stat-l">Year range</span></div>
+      <div class="stat"><span class="stat-n">2</span><span class="stat-l">Source lists</span></div>
     </div>
   </div>
 </header>
@@ -362,7 +83,7 @@ footer {
   <div class="controls-inner">
     <div class="search-wrap">
       <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input id="search" type="text" placeholder="Search by title, author, or keyword…" oninput="render()" autocomplete="off">
+      <input id="search" type="text" placeholder="Search by title or author…" oninput="render()" autocomplete="off">
     </div>
     <div class="filter-tabs" id="filter-tabs"></div>
   </div>
@@ -375,225 +96,247 @@ footer {
 </main>
 
 <footer>
-  AI Companion Research Archive &middot; Compiled for broad literature review &middot; 102 papers across 9 thematic sections
+  AI Companion Research Archive &middot; Merged from two curated reading lists &middot; 166 papers across 10 thematic sections
 </footer>
 
 <script>
-const SECS = [
-  { id: 'all',  name: 'All papers',                      color: '#1a1917' },
-  { id: 's1',   name: 'Theoretical foundations',         color: '#5a5a5a' },
-  { id: 's2',   name: 'Defining AI companionship',       color: '#6a61c7' },
-  { id: 's3',   name: 'Relationship formation & dynamics', color: '#1a8f68' },
-  { id: 's4',   name: 'Mental health & support',         color: '#2a77be' },
-  { id: 's5',   name: 'Risks, harms & ethics',           color: '#c0481f' },
-  { id: 's6',   name: 'Older adults & aging',            color: '#a6650d' },
-  { id: 's7',   name: 'Children, youth & education',     color: '#4f880f' },
-  { id: 's8',   name: 'Social robots & embodied AI',     color: '#b53d6e' },
-  { id: 's9',   name: 'Design, UX & systems',            color: '#4640a5' },
+const SECS=[
+  {id:'all',  name:'All papers',                           color:'#1a1917'},
+  {id:'s1',   name:'Theoretical foundations',              color:'#5a5a5a'},
+  {id:'s2',   name:'Defining AI companionship',            color:'#6a61c7'},
+  {id:'s3',   name:'Relationship formation & dynamics',    color:'#1a8f68'},
+  {id:'s4',   name:'AI companions & wellbeing',            color:'#2a77be'},
+  {id:'s5',   name:'Mental health & support',              color:'#7a3db8'},
+  {id:'s6',   name:'Risks, harms & ethics',                color:'#c0481f'},
+  {id:'s7',   name:'Children, youth & education',          color:'#4f880f'},
+  {id:'s8',   name:'Older adults & aging',                 color:'#a6650d'},
+  {id:'s9',   name:'Social robots & embodied AI',          color:'#b53d6e'},
+  {id:'s10',  name:'Design, UX & systems',                 color:'#4640a5'},
 ];
-
-const P = [
-  /* ── s1  Theoretical foundations ─────────────────── */
-  {s:'s1',y:1987,a:'Rook',f:'Rook, K. S.',t:'Social Support Versus Companionship: Effects on Life Stress, Loneliness, and Evaluations by Others',tp:'journal'},
-  {s:'s1',y:1996,a:'Reeves & Nass',f:'Reeves, B.; Nass, C.',t:'The media equation: how people treat computers, television, and new media like real people and places',tp:'book'},
-  {s:'s1',y:2000,a:'Nass & Moon',f:'Nass, C.; Moon, Y.',t:'Machines and Mindlessness: Social Responses to Computers',tp:'journal'},
-  {s:'s1',y:2003,a:'Lee & Nass',f:'Lee, K. M.; Nass, C.',t:'Designing social presence of social actors in human computer interaction',tp:'conference'},
-  {s:'s1',y:2004,a:'Picard et al.',f:'Picard, R. W.; Papert, S.; Bender, W.; Blumberg, B.; Breazeal, C. et al.',t:'Affective Learning — A Manifesto',tp:'journal'},
-  {s:'s1',y:2005,a:'Bickmore & Picard',f:'Bickmore, T. W.; Picard, R. W.',t:'Establishing and maintaining long-term human-computer relationships',tp:'journal'},
-  {s:'s1',y:null,a:'Bickmore',f:'Bickmore, T. W.',t:'Relational Agents: Effecting Change through Human-Computer Relationships',tp:'book'},
-  {s:'s1',y:2010,a:'Benyon & Mival',f:'Benyon, D.; Mival, O.',t:'From human-computer interactions to human-companion relationships',tp:'conference'},
-  {s:'s1',y:2018,a:'Oh et al.',f:'Oh, C. S.; Bailenson, J. N.; Welch, G. F.',t:'A Systematic Review of Social Presence: Definition, Antecedents, and Implications',tp:'journal'},
-  {s:'s1',y:2019,a:'Kim et al.',f:'Kim, S. Y.; Schmitt, B. H.; Thalmann, N. M.',t:'Eliza in the uncanny valley: anthropomorphizing consumer robots increases their perceived warmth but decreases liking',tp:'journal'},
-  {s:'s1',y:2020,a:'Gambino et al.',f:'Gambino, A.; Fox, J.; Ratan, R.',t:'Building a Stronger CASA: Extending the Computers Are Social Actors Paradigm',tp:'journal'},
-  /* ── s2  Defining AI companionship ───────────────── */
-  {s:'s2',y:null,a:'Buick',f:'Buick, S.',t:'In Love With a Chatbot: Exploring Human-AI Relationships From a Fourth Wave HCI Perspective',tp:'journal'},
-  {s:'s2',y:2023,a:'Chaturvedi et al.',f:'Chaturvedi, R.; Verma, S.; Das, R.; Dwivedi, Y. K.',t:'Social companionship with artificial intelligence: Recent trends and future avenues',tp:'journal'},
-  {s:'s2',y:2023,a:'Rogge',f:'Rogge, A.',t:'Defining, Designing and Distinguishing Artificial Companions: A Systematic Literature Review',tp:'journal'},
-  {s:'s2',y:2023,a:'Strohmann et al.',f:'Strohmann, T.; Siemon, D.; Khosrawi-Rad, B.; Robra-Bissantz, S.',t:'Toward a design theory for virtual companionship',tp:'journal'},
-  {s:'s2',y:2023,a:'Pentina et al.',f:'Pentina, I.; Xie, T.; Hancock, T.; Bailey, A.',t:'Consumer–machine relationships in the age of artificial intelligence: Systematic literature review and research directions',tp:'journal'},
-  {s:'s2',y:2024,a:'Chou et al.',f:'Chou, C.-Y.; Chan, T.-W.; Chen, Z.-H. et al.',t:'Defining AI companions: a research agenda—from artificial companions for learning to general artificial companions',tp:'journal'},
-  {s:'s2',y:2025,a:'Banks & Li',f:'Banks, J.; Li, Z.',t:'Conceptualization, Operationalization, and Measurement of Machine Companionship: A Scoping Review',tp:'journal'},
-  {s:'s2',y:2025,a:'Banks et al.',f:'Banks, J.; Li, J.; Li, Z.; Carr, C. T.',t:'Operationalizing Machine Companionship: Exploring Topics in Discussions of Companion AI',tp:'conference'},
-  {s:'s2',y:2025,a:'Andersson',f:'Andersson, M.',t:"Companionship in code: AI's role in the future of human connection",tp:'journal'},
-  {s:'s2',y:2026,a:'Carpenter',f:'Carpenter, J.',t:'Human–AI relationships as designed relationality: a sociotechnical model',tp:'journal'},
-  {s:'s2',y:2026,a:'Manoli et al.',f:'Manoli, A.; Pauketat, J. V. T.; Ladak, A. et al.',t:'Digital Companionship: Overlapping Uses of AI Companions and AI Assistants',tp:'conference'},
-  /* ── s3  Relationship formation & dynamics ───────── */
-  {s:'s3',y:2018,a:'Ho et al.',f:'Ho, A.; Hancock, J.; Miner, A. S.',t:'Psychological, Relational, and Emotional Effects of Self-Disclosure After Conversations With a Chatbot',tp:'journal'},
-  {s:'s3',y:2020,a:'Ta et al.',f:'Ta, V.; Griffith, C.; Boatfield, C. et al.',t:'User Experiences of Social Support From Companion Chatbots in Everyday Contexts: Thematic Analysis',tp:'journal'},
-  {s:'s3',y:2021,a:'Croes & Antheunis',f:'Croes, E. A. J.; Antheunis, M. L.',t:'Can we be friends with Mitsuku? A longitudinal study on the process of relationship formation between humans and a social chatbot',tp:'journal'},
-  {s:'s3',y:2021,a:'Skjuve et al.',f:'Skjuve, M.; Følstad, A.; Fostervold, K. I.; Brandtzaeg, P. B.',t:'My Chatbot Companion - a Study of Human-Chatbot Relationships',tp:'journal'},
-  {s:'s3',y:2022,a:'Brandtzaeg et al.',f:'Brandtzaeg, P. B.; Skjuve, M.; Følstad, A.',t:'My AI Friend: How Users of a Social Chatbot Understand Their Human–AI Friendship',tp:'journal'},
-  {s:'s3',y:2022,a:'Skjuve et al.',f:'Skjuve, M.; Følstad, A.; Fostervold, K. I.; Brandtzaeg, P. B.',t:'A longitudinal study of human–chatbot relationships',tp:'journal'},
-  {s:'s3',y:2023,a:'Pentina et al.',f:'Pentina, I.; Hancock, T.; Xie, T.',t:'Exploring relationship development with social chatbots: A mixed-method study of Replika',tp:'journal'},
-  {s:'s3',y:2023,a:'Skjuve et al.',f:'Skjuve, M.; Følstad, A.; Brandtzæg, P. B.',t:'A Longitudinal Study of Self-Disclosure in Human–Chatbot Relationships',tp:'journal'},
-  {s:'s3',y:2023,a:'Xie et al.',f:'Xie, T.; Pentina, I.; Hancock, T.',t:'Friend, mentor, lover: does chatbot engagement lead to psychological dependence?',tp:'journal'},
-  {s:'s3',y:2024,a:'Maeda & Quan-Haase',f:'Maeda, T.; Quan-Haase, A.',t:'When Human-AI Interactions Become Parasocial: Agency and Anthropomorphism in Affective Design',tp:'conference'},
-  {s:'s3',y:2024,a:'Banks',f:'Banks, J.',t:'Deletion, departure, death: Experiences of AI companion loss',tp:'journal'},
-  {s:'s3',y:2024,a:'Li & Zhang',f:'Li, H.; Zhang, R.',t:'Finding love in algorithms: deciphering the emotional contexts of close encounters with AI chatbots',tp:'journal'},
-  {s:'s3',y:2024,a:'Skjuve et al.',f:'Skjuve, M.; Brandtzaeg, P. B.; Følstad, A.',t:'Why do people use ChatGPT? Exploring user motivations for generative conversational AI',tp:'journal'},
-  {s:'s3',y:2025,a:'Ng & Zhang',f:'Ng, S. W. T.; Zhang, R.',t:'Trust in AI chatbots: A systematic review',tp:'journal'},
-  {s:'s3',y:2025,a:'Bayor et al.',f:'Bayor, L.; Weinert, C.; Maier, C.; Weitzel, T.',t:'Social-Oriented Communication with AI Companions: Benefits, Costs, and Contextual Patterns',tp:'journal'},
-  {s:'s3',y:2025,a:'Zhang et al.',f:'Zhang, Y.; Zhao, D.; Hancock, J. T.; Kraut, R.; Yang, D.',t:'The Rise of AI Companions: How Human-Chatbot Relationships Influence Well-Being',tp:'preprint'},
-  /* ── s4  Mental health & support ─────────────────── */
-  {s:'s4',y:2022,a:'Jiang et al.',f:'Jiang, Q.; Zhang, Y.; Pian, W.',t:'Chatbot as an emergency exit: Mediated empathy for resilience via human-AI interaction during the COVID-19 pandemic',tp:'journal'},
-  {s:'s4',y:2022,a:'Maeng & Lee',f:'Maeng, W.; Lee, J.',t:'Designing and Evaluating a Chatbot for Survivors of Image-Based Sexual Abuse',tp:'conference'},
-  {s:'s4',y:2023,a:'Meng et al.',f:'Meng, J.; Rheu, M. J.; Zhang, Y.; Dai, Y.; Peng, W.',t:'Mediated Social Support for Distress Reduction: AI Chatbots vs. Human',tp:'journal'},
-  {s:'s4',y:2023,a:'Jeong et al.',f:'Jeong, S.; Aymerich-Franch, L.; Alghowinem, S.; Picard, R. W.',t:'A Robotic Companion for Psychological Well-being: A Long-term Investigation of Companionship and Therapeutic Alliance',tp:'conference'},
-  {s:'s4',y:2023,a:'Jeong et al.',f:'Jeong, S.; Aymerich-Franch, L.; Arias, K. et al.',t:"Deploying a robotic positive psychology coach to improve college students' psychological well-being",tp:'journal'},
-  {s:'s4',y:2023,a:'Li et al.',f:'Li, H.; Zhang, R.; Lee, Y.-C.; Kraut, R. E.; Mohr, D. C.',t:'Systematic review and meta-analysis of AI-based conversational agents for promoting mental health and well-being',tp:'journal'},
-  {s:'s4',y:null,a:'Ma et al.',f:'Ma, Z.; Mei, Y.; Su, Z.',t:'Understanding the Benefits and Challenges of Using Large Language Model-based Conversational Agents for Mental Well-being Support',tp:'journal'},
-  {s:'s4',y:2024,a:'Ma et al.',f:'Ma, Z.; Mei, Y.; Long, Y.; Su, Z.; Gajos, K. Z.',t:'Evaluating the Experience of LGBTQ+ People Using Large Language Model Based Chatbots for Mental Health Support',tp:'conference'},
-  {s:'s4',y:2024,a:'Ali et al.',f:'Ali, F.; Zhang, Q.; Tauni, M. Z.; Shahzad, K.',t:'Social Chatbot: My Friend in My Distress',tp:'journal'},
-  {s:'s4',y:2024,a:'Maples et al.',f:'Maples, B.; Cerit, M.; Vishwanath, A.; Pea, R.',t:'Loneliness and suicide mitigation for students using GPT3-enabled chatbots',tp:'journal'},
-  {s:'s4',y:2024,a:'De Freitas et al.',f:'De Freitas, J.; Uğuralp, A. K.; Uğuralp, Z.; Puntoni, S.',t:'AI Companions Reduce Loneliness',tp:'journal'},
-  {s:'s4',y:2025,a:'Zhang et al.',f:'Zhang, Q.; Zhang, R.; Xiong, Y. et al.',t:'Generative AI Mental Health Chatbots as Therapeutic Tools: Systematic Review and Meta-Analysis of Their Role in Reducing Mental Health Issues',tp:'journal'},
-  {s:'s4',y:2025,a:'Wang et al.',f:'Wang, Y.; Wang, Y.; Crace, K.; Zhang, Y.',t:'Understanding Attitudes and Trust of Generative AI Chatbots for Social Anxiety Support',tp:'conference'},
-  {s:'s4',y:2026,a:'Tseng et al.',f:'Tseng, E.; Adler, D. A.; Walker, A. M.; Shelby, R. et al.',t:'Social and Emotional Uses of AI',tp:'journal'},
-  {s:'s4',y:2026,a:'Skjuve et al.',f:'Skjuve, M.; Følstad, A.; Brandtzaeg, P. B.',t:'ChatGPT as a mental health advisory service: Comparing evaluations from youth and health professionals',tp:'journal'},
-  /* ── s5  Risks, harms & ethics ───────────────────── */
-  {s:'s5',y:2020,a:'Sætra',f:'Sætra, H. S.',t:'The Parasitic Nature of Social AI: Sharing Minds with the Mindless',tp:'journal'},
-  {s:'s5',y:2024,a:'Zhang et al.',f:'Zhang, Z.; Jia, M.; Lee, H.-P.; Yao, B.; Das, S.',t:'"It\'s a Fair Game", or Is It? Examining How Users Navigate Disclosure Risks and Benefits When Using LLM-Based Conversational Agents',tp:'conference'},
-  {s:'s5',y:2024,a:'Laestadius et al.',f:'Laestadius, L.; Bishop, A.; Gonzalez, M. et al.',t:'Too human and not human enough: A grounded theory analysis of mental health harms from emotional dependence on the social chatbot Replika',tp:'journal'},
-  {s:'s5',y:2024,a:'Kouros & Papa',f:'Kouros, T.; Papa, V.',t:'Digital Mirrors: AI Companions and the Self',tp:'journal'},
-  {s:'s5',y:2025,a:'Zhang et al.',f:'Zhang, R.; Li, H.; Meng, H.; Zhan, J.; Gan, H.; Lee, Y.-C.',t:'The Dark Side of AI Companionship: A Taxonomy of Harmful Algorithmic Behaviors in Human-AI Relationships',tp:'conference'},
-  {s:'s5',y:2025,a:'Chandra et al.',f:'Chandra, M.; Naik, S.; Ford, D.; Okoli, E.; De Choudhury, M.',t:'From Lived Experience to Insight: Unpacking the Psychological Risks of Using AI Conversational Agents',tp:'conference'},
-  {s:'s5',y:2025,a:'Kirk et al.',f:'Kirk, H. R.; Gabriel, I.; Summerfield, C.; Vidgen, B. et al.',t:'Why human–AI relationships need socioaffective alignment',tp:'journal'},
-  {s:'s5',y:2025,a:'Huang et al.',f:'Huang, J.; Kim, I.-J.; Yoon, D.',t:'Mirror to Companion: Exploring Roles, Values, and Risks of AI Self-Clones through Story Completion',tp:'conference'},
-  {s:'s5',y:2025,a:'Ahuvia et al.',f:'Ahuvia, A.; Brandtzaeg, P. B.; Koles, B.; Pagani, M. et al.',t:'Reimagining Human-AI Relationships: A Positive Future for Chatbots, Social AI, and the Phygital Self',tp:'journal'},
-  {s:'s5',y:2026,a:'Sparrow & Brown',f:'Sparrow, R.; Brown, J.',t:'Against Imaginary Friends: Why Digital Companions Are No Solution to Social Isolation',tp:'journal'},
-  {s:'s5',y:2026,a:'Shi et al.',f:'Shi, Y.; Xiao, Q.; Hu, Q.; Shen, H.; Shen, H.',t:'The Siren Song of LLMs: How Users Perceive and Respond to Dark Patterns in Large Language Models',tp:'conference'},
-  {s:'s5',y:2026,a:'Lee et al.',f:'Lee, D.; Wan, C.; Ng, P. M. L.; Fung, Y.-N.; Wu, N.',t:"Effects of AI Companions' Sycophancy and Emotional Mimicry on Consumers' Continuance Intention and Social Wellbeing",tp:'journal'},
-  {s:'s5',y:2026,a:'Kollig & Fiesler',f:'Kollig, F.; Fiesler, C.',t:'"If it helps then it doesn\'t matter": Exploring Non-User Views on Chatbot Companionship through Story Completion',tp:'journal'},
-  {s:'s5',y:2026,a:'Tseng & Liang',f:'Tseng, E.; Liang, C. A.',t:'"Chat, Should I Leave Him?" Risks, Rewards, and Roles for AI in Relationship Advice',tp:'journal'},
-  /* ── s6  Older adults & aging ────────────────────── */
-  {s:'s6',y:2005,a:'Bickmore et al.',f:"Bickmore, T. W.; Caruso, L.; Clough-Gorr, K.; Heeren, T.",t:"'It's just like you talk to a friend' relational agents for older adults",tp:'journal'},
-  {s:'s6',y:2012,a:'Vardoulakis et al.',f:'Vardoulakis, L. P.; Ring, L.; Barry, B.; Sidner, C. L.; Bickmore, T.',t:'Designing Relational Agents as Long Term Social Companions for Older Adults',tp:'book_chapter'},
-  {s:'s6',y:2014,a:'Takayanagi et al.',f:'Takayanagi, K.; Kirita, T.; Shibata, T.',t:'Comparison of Verbal and Emotional Responses of Elderly People with Mild/Moderate and Severe Dementia in Responses to Seal Robot, PARO',tp:'journal'},
-  {s:'s6',y:2016,a:'Lazar et al.',f:'Lazar, A.; Thompson, H. J.; Piper, A. M.; Demiris, G.',t:'Rethinking the Design of Robotic Pets for Older Adults',tp:'conference'},
-  {s:'s6',y:2018,a:'Sidner et al.',f:'Sidner, C. L.; Bickmore, T.; Nooraie, B.; Rich, C. et al.',t:'Creating New Technologies for Companionable Agents to Support Isolated Older Adults',tp:'journal'},
-  {s:'s6',y:2020,a:'Zuckerman et al.',f:'Zuckerman, O.; Walker, D.; Grishko, A.; Moran, T. et al.',t:'Companionship Is Not a Function: The Effect of a Novel Robotic Object on Healthy Older Adults\' Feelings of "Being-Seen"',tp:'conference'},
-  {s:'s6',y:2021,a:'Ramadan et al.',f:'Ramadan, Z.; Farah, M. F.; El Essrawi, L.',t:'From Amazon.com to Amazon.love: How Alexa is redefining companionship and interdependence for people with special needs',tp:'journal'},
-  {s:'s6',y:2025,a:'Yang et al.',f:'Yang, Y.; Wang, C.; Xiang, X.; An, R.',t:'AI Applications to Reduce Loneliness Among Older Adults: A Systematic Review of Effectiveness and Technologies',tp:'journal'},
-  {s:'s6',y:2025,a:'Wang et al.',f:'Wang, M.; Yu, K.; Zhang, Y.; Fan, M.',t:'Challenges in Adopting Companion Robots: An Exploratory Study of Robotic Companionship Conducted with Chinese Retirees',tp:'journal'},
-  {s:'s6',y:2025,a:'Wang & Leigh',f:'Wang, L. R.; Leigh, S.',t:'Companionship to Mediationship: Rethinking the Role of AI in Informal Older Adult Caregiving',tp:'conference'},
-  /* ── s7  Children, youth & education ─────────────── */
-  {s:'s7',y:2020,a:'Charisi et al.',f:'Charisi, V.; Malinverni, L.; Rubegni, E.; Schaper, M.-M.',t:"Empowering Children's Critical Reflections on AI, Robotics and Other Intelligent Technologies",tp:'conference'},
-  {s:'s7',y:2021,a:"O'Brien et al.",f:"O'Brien, C.; O'Mara, M.; Issartel, J.; McGinn, C.",t:'Exploring the Design Space of Therapeutic Robot Companions for Children',tp:'conference'},
-  {s:'s7',y:2024,a:'Young et al.',f:'Young, J.; Jawara, L. M.; Nguyen, D. N. et al.',t:'The Role of AI in Peer Support for Young People: A Study of Preferences for Human- and AI-Generated Responses',tp:'conference'},
-  {s:'s7',y:null,a:'Faverio & Sidoti',f:'Faverio, M.; Sidoti, O.',t:'Teens, Social Media and AI Chatbots 2025',tp:'journal'},
-  {s:'s7',y:null,a:'Potter et al.',f:'Potter, H. et al.',t:'Character.ai: Young people turning to AI therapist bots',tp:'journal'},
-  {s:'s7',y:2025,a:'Robb & Mann',f:'Robb, M. B.; Mann, S.',t:'Talk, Trust and Trade-Offs: How and Why Teens Use AI Companions',tp:'journal'},
-  {s:'s7',y:2025,a:'Sharma et al.',f:'Sharma, S.; Klemettilä, P.; Tanaka, J.',t:'A robot teacher "is very good for learning, but not for human relationships": Japanese Children\'s Critical Perspectives Towards Ethical AI Futures',tp:'conference'},
-  {s:'s7',y:2025,a:'Brandtzaeg et al.',f:'Brandtzaeg, P. B.; Følstad, A.; Skjuve, M.',t:'Emerging AI individualism: how young people integrate social AI into everyday life',tp:'journal'},
-  {s:'s7',y:2026,a:'Blake et al.',f:'Blake, A.; Carter, M.; Velloso, E.',t:'Restoration, Exploration and Transformation: How Youth Engage Character.AI for Fun, Feels and Finding themselves',tp:'conference'},
-  {s:'s7',y:2026,a:'Namvarpour et al.',f:'Namvarpour, M.; Brofsky, B.; Medina, J. et al.',t:'Understanding Teen Overreliance on AI Companion Chatbots Through Self-Reported Reddit Narratives',tp:'conference'},
-  {s:'s7',y:2026,a:'Wright et al.',f:'Wright, L. L.; Li, K.; Watkins, H.; Kim, K.; Sebo, S.',t:'Fictional vs. Factual Robot Tutor Dialogue Can Shape Child Social-Emotional Learning',tp:'conference'},
-  /* ── s8  Social robots & embodied AI ─────────────── */
-  {s:'s8',y:2002,a:'Breazeal',f:'Breazeal, C. L.',t:'Designing sociable robots',tp:'book'},
-  {s:'s8',y:2006,a:'Forlizzi & DiSalvo',f:'Forlizzi, J.; DiSalvo, C.',t:'Service robots in the domestic environment: a study of the Roomba vacuum in the home',tp:'conference'},
-  {s:'s8',y:2007,a:'Sung et al.',f:'Sung, J.-Y.; Guo, L.; Grinter, R. E.; Christensen, H. I.',t:'"My Roomba Is Rambo": Intimate Home Appliances',tp:'book_chapter'},
-  {s:'s8',y:2013,a:'Leite et al.',f:'Leite, I.; Martinho, C.; Paiva, A.',t:'Social Robots for Long-Term Interaction: A Survey',tp:'journal'},
-  {s:'s8',y:2020,a:'Niess & Woźniak',f:'Niess, J.; Woźniak, P. W.',t:'Embracing Companion Technologies',tp:'conference'},
-  {s:'s8',y:2020,a:'Zhou et al.',f:'Zhou, L.; Gao, J.; Li, D.; Shum, H.-Y.',t:'The Design and Implementation of XiaoIce, an Empathetic Social Chatbot',tp:'journal'},
-  {s:'s8',y:2024,a:'Ahmed et al.',f:"Ahmed, E.; Buruk, O. 'Oz'; Hamari, J.",t:'Human–Robot Companionship: Current Trends and Future Agenda',tp:'journal'},
-  {s:'s8',y:2025,a:'Mitchell & Jeon',f:'Mitchell, J. J.; Jeon, M.',t:'Exploring Emotional Connections: A Systematic Literature Review of Attachment in Human-Robot Interaction',tp:'journal'},
-  /* ── s9  Design, UX & systems ────────────────────── */
-  {s:'s9',y:2006,a:'Bickmore & Schulman',f:'Bickmore, T.; Schulman, D.',t:'The comforting presence of relational agents',tp:'conference'},
-  {s:'s9',y:2007,a:'Bickmore & Schulman',f:'Bickmore, T.; Schulman, D.',t:'Practical approaches to comforting users with relational agents',tp:'conference'},
-  {s:'s9',y:2019,a:'Yıldız',f:'Yıldız, T.',t:'Human-Computer Interaction Problem in Learning: Could the Key Be Hidden Somewhere Between Social Interaction and Development of Tools?',tp:'journal'},
-  {s:'s9',y:2022,a:'Zheng et al.',f:'Zheng, Q.; Tang, Y.; Liu, Y.; Liu, W.; Huang, Y.',t:'UX Research on Conversational Human-AI Interaction: A Literature Review of the ACM Digital Library',tp:'conference'},
-  {s:'s9',y:2024,a:'Liu et al.',f:'Liu, Z.; Li, H.; Chen, A.; Zhang, R.; Lee, Y.-C.',t:'Understanding Public Perceptions of AI Conversational Agents: A Cross-Cultural Analysis',tp:'conference'},
-  {s:'s9',y:2025,a:'Guan et al.',f:'Guan, H.; Jamieson, J.; Gao, G.; Yamashita, N.',t:'Unpacking Negative Feelings and Perceptual Gaps About Social Interactions with Conversational AI',tp:'conference'},
+const P=[
+  {s:"s1",y:1987,f:"Rook, Karen S",t:"Social Support Versus Companionship: Effects on Life Stress, Loneliness, and Evaluations by Others",doi:""},
+  {s:"s1",y:1996,f:"Reeves, Byron; Nass, Clifford",t:"The media equation: how people treat computers, television, and new media like real people and places",doi:""},
+  {s:"s1",y:2000,f:"Nass, Clifford; Moon, Youngme",t:"Machines and Mindlessness: Social Responses to Computers",doi:"10.1111/0022-4537.00153"},
+  {s:"s1",y:2005,f:"Bickmore, Timothy W.; Picard, Rosalind W.",t:"Establishing and maintaining long-term human-computer relationships",doi:"10.1145/1067860.1067867"},
+  {s:"s1",y:2018,f:"Oh, Catherine S.; Bailenson, Jeremy N.; Welch, Gregory F.",t:"A Systematic Review of Social Presence: Definition, Antecedents, and Implications",doi:"10.3389/frobt.2018.00114"},
+  {s:"s1",y:2020,f:"Gambino, Andrew; Fox, Jesse; Ratan, Rabindra",t:"Building a Stronger CASA: Extending the Computers Are Social Actors Paradigm",doi:"10.30658/hmc.1.5"},
+  {s:"s2",y:2023,f:"Rogge, Ayanda",t:"Defining, Designing and Distinguishing Artificial Companions: A Systematic Literature Review",doi:"10.1007/s12369-023-01031-y"},
+  {s:"s2",y:2023,f:"Chaturvedi, Rijul; Verma, Sanjeev; Das, Ronnie; Dwivedi, Yogesh K.",t:"Social companionship with artificial intelligence: Recent trends and future avenues",doi:"10.1016/j.techfore.2023.122634"},
+  {s:"s2",y:2023,f:"Pentina, Iryna; Xie, Tianling; Hancock, Tyler; Bailey, Ainsworth",t:"Consumer\u2013machine relationships in the age of artificial intelligence: Systematic literature review and research directions",doi:"10.1002/mar.21853"},
+  {s:"s2",y:2024,f:"Chou, Chih-Yueh; Chan, Tak-Wai; Chen, Zhi-Hong; Liao, Chang-Yen; Shih, Ju-Ling; Wu, Ying-Tien; Chang, Ben; Yeh, Charles Y. C.; Hung, Hui-Chun; Cheng, Hercy",t:"Defining AI companions: a research agenda\u2014from artificial companions for learning to general artificial companions for Global Harwell",doi:"10.58459/rptel.2025.20032"},
+  {s:"s2",y:2025,f:"Andersson, Marta",t:"Companionship in code: AI\u2019s role in the future of human connection",doi:"10.1057/s41599-025-05536-x"},
+  {s:"s2",y:2025,f:"Banks, Jaime; Li, Zhixin",t:"Conceptualization, Operationalization, and Measurement of Machine Companionship: A Scoping Review",doi:""},
+  {s:"s2",y:2025,f:"Banks, Jaime; Li, Jianghui; Li, Zhixin; Carr, Caleb T.",t:"Operationalizing Machine Companionship: Exploring Topics in Discussions of Companion AI",doi:"10.1145/3717511.3749298"},
+  {s:"s2",y:2026,f:"Manoli, Aikaterina; Pauketat, Janet V.T.; Ladak, Ali; Noh, Hayoun; Hwang, Angel Hsing-Chi; Anthis, Jacy Reese",t:"Digital Companionship: Overlapping Uses of AI Companions and AI Assistants",doi:"10.1145/3772318.3791331"},
+  {s:"s2",y:2026,f:"Carpenter, Julie",t:"Human\u2013AI relationships as designed relationality: a sociotechnical model",doi:"10.1007/s00146-026-02908-y"},
+  {s:"s2",y:null,f:"Buick, Sara",t:"In Love With a Chatbot: Exploring Human-AI Relationships From a Fourth Wave HCI Perspective",doi:""},
+  {s:"s3",y:2020,f:"Ta, Vivian; Griffith, Caroline; Boatfield, Carolynn; Wang, Xinyu; Civitello, Maria; Bader, Haley; DeCero, Esther; Loggarakis, Alexia",t:"User Experiences of Social Support From Companion Chatbots in Everyday Contexts: Thematic Analysis",doi:"10.2196/16235"},
+  {s:"s3",y:2021,f:"Skjuve, Marita; F\u00f8lstad, Asbj\u00f8rn; Fostervold, Knut Inge; Brandtzaeg, Petter Bae",t:"My Chatbot Companion - a Study of Human-Chatbot Relationships",doi:"10.1016/j.ijhcs.2021.102601"},
+  {s:"s3",y:2022,f:"Brandtzaeg, Petter Bae; Skjuve, Marita; F\u00f8lstad, Asbj\u00f8rn",t:"My AI Friend: How Users of a Social Chatbot Understand Their Human\u2013AI Friendship",doi:"10.1093/hcr/hqac008"},
+  {s:"s3",y:2022,f:"Skjuve, Marita; F\u00f8lstad, Asbj\u00f8rn; Fostervold, Knut Inge; Brandtzaeg, Petter Bae",t:"A longitudinal study of human\u2013chatbot relationships",doi:"10.1016/j.ijhcs.2022.102903"},
+  {s:"s3",y:2023,f:"Skjuve, Marita; F\u00f8lstad, Asbj\u00f8rn; Brandtz\u00e6g, Petter Bae",t:"A Longitudinal Study of Self-Disclosure in Human\u2013Chatbot Relationships",doi:"10.1093/iwc/iwad022"},
+  {s:"s3",y:2023,f:"Pentina, Iryna; Hancock, Tyler; Xie, Tianling",t:"Exploring relationship development with social chatbots: A mixed-method study of replika",doi:"10.1016/j.chb.2022.107600"},
+  {s:"s3",y:2023,f:"Xie, Tianling; Pentina, Iryna; Hancock, Tyler",t:"Friend, mentor, lover: does chatbot engagement lead to psychological dependence?",doi:"10.1108/JOSM-02-2022-0072"},
+  {s:"s3",y:2024,f:"Li, Han; Zhang, Renwen",t:"Finding love in algorithms: deciphering the emotional contexts of close encounters with AI chatbots",doi:"10.1093/jcmc/zmae015"},
+  {s:"s3",y:2024,f:"Maeda, Takuya; Quan-Haase, Anabel",t:"When Human-AI Interactions Become Parasocial: Agency and Anthropomorphism in Affective Design",doi:"10.1145/3630106.3658956"},
+  {s:"s3",y:2024,f:"Skjuve, Marita; Brandtzaeg, Petter Bae; F\u00f8lstad, Asbj\u00f8rn",t:"Why do people use ChatGPT? Exploring user motivations for generative conversational AI",doi:"10.5210/fm.v29i1.13541"},
+  {s:"s3",y:2024,f:"Banks, Jaime",t:"Deletion, departure, death: Experiences of AI companion loss",doi:"10.1177/02654075241269688"},
+  {s:"s3",y:2025,f:"Ng, Sheryl Wei Ting; Zhang, Renwen",t:"Trust in AI chatbots: A systematic review",doi:"10.1016/j.tele.2025.102240"},
+  {s:"s3",y:2025,f:"Bayor, Laura; Weinert, Christoph; Maier, Christian; Weitzel, Tim",t:"Social-Oriented Communication with AI Companions: Benefits, Costs, and Contextual Patterns",doi:"10.1007/s12599-025-00955-1"},
+  {s:"s3",y:2025,f:"Zhang, Yutong; Zhao, Dora; Hancock, Jeffrey T.; Kraut, Robert; Yang, Diyi",t:"The Rise of AI Companions: How Human-Chatbot Relationships Influence Well-Being",doi:"10.48550/arXiv.2506.12605"},
+  {s:"s4",y:2005,f:"H. Prendinger and M. Ishizuka",t:"THE EMPATHIC COMPANION: A CHARACTER-BASED INTERFACE THAT ADDRESSES USERS' AFFECTIVE STATES",doi:"10.1080/08839510590910174"},
+  {s:"s4",y:2012,f:"J. V. D. Zwaan",t:"An Embodied Conversational Agent for Social Support",doi:""},
+  {s:"s4",y:2014,f:"J. V. D. Zwaan",t:"An Empathic Virtual Buddy for Social Support",doi:"10.4233/UUID:F32371B2-82CC-414E-9569-2D56B12A530A"},
+  {s:"s4",y:2020,f:"Danika Passler Bates and J. Young",t:"SnuggleBot: A Novel Cuddly Companion Robot Design",doi:"10.1145/3406499.3418772"},
+  {s:"s4",y:2020,f:"Silke ter Stal, L. L. Kramer, M. Tabak, H. O. D. Akker, and H. Hermens",t:"Design Features of Embodied Conversational Agents in eHealth: a Literature Review",doi:"10.1016/j.ijhcs.2020.102409"},
+  {s:"s4",y:2021,f:"A. Rapp, L. Curti, and Arianna Boldi",t:"The human side of human-chatbot interaction: A systematic literature review of ten years of research on text-based chatbots",doi:"10.1016/j.ijhcs.2021.102630"},
+  {s:"s4",y:2022,f:"Dominik Siemon et al.",t:"Why Do We Turn to Virtual Companions? A Text Mining Analysis of Replika Reviews",doi:""},
+  {s:"s4",y:2022,f:"Kelly Merrill, Jihyun Kim, and Chad Collins",t:"AI companions for lonely individuals and the role of social presence",doi:"10.1080/08824096.2022.2045929"},
+  {s:"s4",y:2022,f:"Marta D\u00edaz-Boladeras",t:"Bond formation with pet-robots: An integrative approach",doi:"10.1007/s12144-022-03792-7"},
+  {s:"s4",y:2022,f:"Tian Xie and Iryna Pentina",t:"Attachment Theory as a Framework to Understand Relationships with Social Chatbots: A Case Study of Replika",doi:"10.24251/hicss.2022.258"},
+  {s:"s4",y:2022,f:"Vivian P. Ta-Johnson et al.",t:"Assessing the Topics and Motivating Factors Behind Human-Social Chatbot Interactions: Thematic Analysis of User Experiences",doi:"10.2196/38876"},
+  {s:"s4",y:2023,f:"Yulia W. Sullivan, Serge Nyawa, and S. Wamba",t:"Combating Loneliness with Artificial Intelligence: An AI-Based Emotional Support Model",doi:"10.24251/hicss.2023.541"},
+  {s:"s4",y:2023,f:"Carolin Wienrich et al.",t:"Long-Term Effects of Perceived Friendship with Intelligent Voice Assistants on Usage Behavior, User Experience, and Social Perceptions",doi:"10.3390/computers12040077"},
+  {s:"s4",y:2023,f:"Rose E. Guingrich and Michael S. A. Graziano",t:"Chatbots as social companions: How people perceive consciousness, human likeness, and social health benefits in machines",doi:"10.1093/9780198945215.003.0011"},
+  {s:"s4",y:2023,f:"Keita Kiuchi, Kouyou Otsu, and Yugo Hayashi",t:"Psychological insights into the research and practice of embodied conversational agents, chatbots and social assistive robots: a systematic meta-review",doi:"10.1080/0144929X.2023.2286528"},
+  {s:"s4",y:2024,f:"Juan Carlos Nieves, Mauricio Osorio, D. Rojas-Velazquez, Yazm\u00edn Magallanes, and Andreas Br\u00e4nnstr\u00f6m",t:"Digital Companions for Well-being: Challenges and Opportunities",doi:"10.3233/jifs-219336"},
+  {s:"s4",y:2024,f:"Danika Passler Bates, Skyla Y. Dudek, James M. Berzuk, Adriana Lorena Gonz\u00e1lez, and J. Young",t:"SnuggleBot the Companion: Exploring In-Home Robot Interaction Strategies to Support Coping With Loneliness",doi:"10.1145/3643834.3660702"},
+  {s:"s4",y:2024,f:"Auren R. Liu, Pat Pataranutaporn, S. Turkle, and Pattie Maes",t:"Chatbot Companionship: A Mixed-Methods Study of Companion Chatbot Usage Patterns and Their Relationship to Loneliness in Active Users",doi:"10.48550/arXiv.2410.21596"},
+  {s:"s4",y:2025,f:"Riccardo Volpato, Lisa DeBruine, and Simone Stumpf",t:"Trusting emotional support from generative artificial intelligence: a conceptual review.",doi:"10.1016/j.chbah.2025.100195"},
+  {s:"s4",y:2025,f:"Mohit Chandra et al.",t:"Longitudinal Study on Social and Emotional Use of AI Conversational Agent",doi:"10.48550/arXiv.2504.14112"},
+  {s:"s4",y:2025,f:"Wenxue Zou, Zikun Liu, and Cong Lin",t:"The influence of individuals\u2019 emotional involvement and perceived roles of AI chatbots on emotional self-efficacy",doi:"10.1080/1369118X.2025.2508394"},
+  {s:"s4",y:2025,f:"Pat Pataranutaporn et al.",t:"\"My Boyfriend is AI\": A Computational Analysis of Human-AI Companionship in Reddit's AI Community",doi:"10.48550/arXiv.2509.11391"},
+  {s:"s4",y:2025,f:"Auren R. Liu, Pat Pataranutaporn, and Pattie Maes",t:"The Heterogeneous Effects of AI Companionship: An Empirical Model of Chatbot Usage and Loneliness and a Typology of User Archetypes",doi:"10.1609/aies.v8i2.36658"},
+  {s:"s4",y:2025,f:"Guy Laban, Sophie Chiang, and Hatice Gunes",t:"What People Share With a Robot When Feeling Lonely and Stressed and How It Helps Over Time",doi:"10.1109/RO-MAN63969.2025.11217573"},
+  {s:"s4",y:2025,f:"David Adam",t:"Supportive? Addictive? Abusive? How AI companions affect our mental health",doi:"10.1038/d41586-025-01349-9"},
+  {s:"s4",y:2025,f:"T. Roza, B. Montezano, J. A. Bottega, and Ives Cavalcante Passos",t:"AI companions: the emerging phenomenon of artificial intelligence-based friends, lovers and informal therapists.",doi:"10.1016/j.jpsychires.2025.10.052"},
+  {s:"s4",y:2025,f:"Shuning Zhang and Shixuan Li",t:"The Real Her? Exploring Whether Young Adults Accept Human-AI Love",doi:"10.48550/arXiv.2503.03067"},
+  {s:"s4",y:2025,f:"Zilan Qian, Mari Izumikawa, Fiona Lodge, and Angelo Leone",t:"Mapping the Parasocial AI Market: User Trends, Engagement and Risks",doi:"10.48550/arXiv.2507.14226"},
+  {s:"s4",y:2025,f:"Brian J. Willoughby, Carson R. Dover, Rebekah M. Hakala, and Jason S. Carroll",t:"Artificial connections: Romantic relationship engagement with artificial intelligence in the United States",doi:"10.1177/02654075251371394"},
+  {s:"s4",y:2025,f:"Kim Malfacini",t:"The impacts of companion AI on human relationships: risks, benefits, and design considerations",doi:"10.1007/s00146-025-02318-6"},
+  {s:"s4",y:2025,f:"J. Q. Ho, Meilan Hu, Tracy X. Chen, and A. Hartanto",t:"Potential and pitfalls of romantic Artificial Intelligence (AI) companions: A systematic review",doi:"10.1016/j.chbr.2025.100715"},
+  {s:"s4",y:2025,f:"Cathy Mengying Fang et al.",t:"How AI and Human Behaviors Shape Psychosocial Effects of Chatbot Use: A Longitudinal Randomized Controlled Study",doi:"10.48550/arXiv.2503.17473"},
+  {s:"s4",y:2025,f:"Keith Robert Head",t:"Minds in Crisis: How the AI Revolution is Impacting Mental Health",doi:"10.29245/2578-2959/2025/2.1352"},
+  {s:"s4",y:2026,f:"Skyler Wang and M. Dehnert",t:"On-Demand Intimacy: The Sociotechnical Appeal of AI Companions",doi:"10.1177/20563051251410394"},
+  {s:"s4",y:2026,f:"Anna Hollis, Phoebe E. McKenna-Plumley, Raluca Roman, and Gary McKeown",t:"Can chatbot companions alleviate loneliness in autistic users? evaluating digital companions",doi:"10.1007/s00146-026-02877-2"},
+  {s:"s5",y:2020,f:"Mauro de Gennaro, Eva G. Krumhuber, and Gale M. Lucas",t:"Effectiveness of an Empathic Chatbot in Combating Adverse Effects of Social Exclusion on Mood",doi:"10.3389/fpsyg.2019.03061"},
+  {s:"s5",y:2022,f:"Ginger E. Nicol, Ruoyun Wang, Sharon Graham, S. Dodd, and J. Garbutt",t:"Chatbot-Delivered Cognitive Behavioral Therapy in Adolescents With Depression and Anxiety During the COVID-19 Pandemic: Feasibility and Acceptability Study",doi:"10.2196/40242"},
+  {s:"s5",y:2022,f:"Theodora Koulouri, R. Macredie, and David Olakitan",t:"Chatbots to Support Young Adults\u2019 Mental Health: An Exploratory Study of Acceptability",doi:"10.1145/3485874"},
+  {s:"s5",y:2023,f:"Li, Han; Zhang, Renwen; Lee, Yi-Chieh; Kraut, Robert E.; Mohr, David C.",t:"Systematic review and meta-analysis of AI-based conversational agents for promoting mental health and well-being",doi:"10.1038/s41746-023-00979-5"},
+  {s:"s5",y:2023,f:"Jeong, Sooyeon; Aymerich-Franch, Laura; Arias, Kika; Alghowinem, Sharifa; Lapedriza, Agata; Picard, Rosalind; Park, Hae Won; Breazeal, Cynthia",t:"Deploying a robotic positive psychology coach to improve college students\u2019 psychological well-being",doi:"10.1007/s11257-022-09337-8"},
+  {s:"s5",y:2023,f:"Meng, Jingbo; Rheu, Minjin (Mj); Zhang, Yue; Dai, Yue; Peng, Wei",t:"Mediated Social Support for Distress Reduction: AI Chatbots vs. Human",doi:"10.1145/3579505"},
+  {s:"s5",y:2023,f:"Jeong, Sooyeon; Aymerich-Franch, Laura; Alghowinem, Sharifa; Picard, Rosalind W.; Breazeal, Cynthia L.; Park, Hae Won",t:"A Robotic Companion for Psychological Well-being: A Long-term Investigation of Companionship and Therapeutic Alliance",doi:"10.1145/3568162.3578625"},
+  {s:"s5",y:2023,f:"Hyojin Chin et al.",t:"The Potential of Chatbots for Emotional Support and Promoting Mental Well-Being in Different Cultures: Mixed Methods Study",doi:"10.2196/51712"},
+  {s:"s5",y:2023,f:"Rachael C Martin and Sally Richmond",t:"Conversational agents for Children's mental health and mental disorders: A scoping review",doi:"10.1016/j.chbah.2023.100028"},
+  {s:"s5",y:2024,f:"De Freitas, Julian; U\u011furalp, Ahmet Kaan; U\u011furalp, Zeliha; Puntoni, Stefano",t:"AI Companions Reduce Loneliness",doi:"10.2139/ssrn.4893097"},
+  {s:"s5",y:2024,f:"Ali, Fayaz; Zhang, Qingyu; Tauni, Muhammad Zubair; Shahzad, Khuram",t:"Social Chatbot: My Friend in My Distress",doi:"10.1080/10447318.2022.2150745"},
+  {s:"s5",y:2024,f:"Laestadius, Linnea; Bishop, Andrea; Gonzalez, Michael; Illen\u010d\u00edk, Diana; Campos-Castillo, Celeste",t:"Too human and not human enough: A grounded theory analysis of mental health harms from emotional dependence on the social chatbot Replika",doi:"10.1177/14614448221142007"},
+  {s:"s5",y:2024,f:"Ma, Zilin; Mei, Yiyang; Long, Yinru; Su, Zhaoyuan; Gajos, Krzysztof Z.",t:"Evaluating the Experience of LGBTQ+ People Using Large Language Model Based Chatbots for Mental Health Support",doi:"10.1145/3613904.3642482"},
+  {s:"s5",y:2024,f:"Maples, Bethanie; Cerit, Merve; Vishwanath, Aditya; Pea, Roy",t:"Loneliness and suicide mitigation for students using GPT3-enabled chatbots",doi:"10.1038/s44184-023-00047-6"},
+  {s:"s5",y:2024,f:"Raluca Balan, A. Dobrean, and Costina-Ruxandra Poetar",t:"Use of automated conversational agents in improving young population mental health: a scoping review",doi:"10.1038/s41746-024-01072-1"},
+  {s:"s5",y:2025,f:"Zhang, Qiyang; Zhang, Renwen; Xiong, Yiying; Sui, Yuan; Tong, Chang; Lin, Fu-Hung",t:"Generative AI Mental Health Chatbots as Therapeutic Tools: Systematic Review and Meta-Analysis of Their Role in Reducing Mental Health Issues",doi:"10.2196/78238"},
+  {s:"s5",y:2025,f:"L. Ajmani et al.",t:"Seeking Late Night Life Lines: Experiences of Conversational AI Use in Mental Health Crisis",doi:"10.48550/arXiv.2512.23859"},
+  {s:"s5",y:2025,f:"M. Mansoor, Ali Hamide, and Tyler Tran",t:"Conversational AI in Pediatric Mental Health: A Narrative Review",doi:"10.3390/children12030359"},
+  {s:"s5",y:2025,f:"Yunhao Yuan, Jiaxu Zhang, Talayeh Aledavood, Renwen Zhang, and Koustuv Saha",t:"Mental Health Impacts of AI Companions: Triangulating Social Media Quasi-Experiments, User Perspectives, and Relational Theory",doi:"10.1145/3772318.3790558"},
+  {s:"s5",y:2025,f:"M. Gleason et al.",t:"A Relational Agent Intervention for Adolescents Seeking Mental Health Treatment: Outcomes From a Randomized Controlled Trial Within a Children\u2019s Outpatient Hospital",doi:"10.1016/j.jaacop.2025.02.002"},
+  {s:"s5",y:2025,f:"Allissa Davis et al.",t:"Evaluating the Feasibility and Acceptability of a Mobile Mental Health Intervention for Adolescent Depression and Anxiety",doi:"10.1177/00099228251371903"},
+  {s:"s5",y:2025,f:"Kathleen W Guan et al.",t:"Lived Experience in Dialogue: Co-designing Personalization in Large Language Models to Support Youth Mental Well-being",doi:"10.48550/arXiv.2511.05769"},
+  {s:"s5",y:2026,f:"Tseng, Emily; Adler, Daniel A; Walker, Ashley Marie; Shelby, Renee; Chancellor, Stevie; Kim, Eugenia; Pendse, Sachin R; Zhang, Renwen",t:"Social and Emotional Uses of AI",doi:""},
+  {s:"s5",y:2026,f:"Skjuve, Marita; F\u00f8lstad, Asbj\u00f8rn; Brandtzaeg, Petter Bae",t:"ChatGPT as a mental health advisory service: Comparing evaluations from youth and health professionals",doi:"10.1177/20552076261427447"},
+  {s:"s5",y:null,f:"Ma, Zilin; Mei, Yiyang; Su, Zhaoyuan",t:"Understanding the Benefits and Challenges of Using Large Language Model-based Conversational Agents for Mental Well-being Support",doi:""},
+  {s:"s6",y:2009,f:"Matthias Scheutz",t:"The Inherent Dangers of Unidirectional Emotional Bonds between Humans and Social Robots",doi:""},
+  {s:"s6",y:2023,f:"Hannah R. Marriott and V. Pitardi",t:"One is the loneliest number\u2026 Two can be as bad as one. The influence of AI Friendship Apps on users' well\u2010being and addiction",doi:"10.1002/mar.21899"},
+  {s:"s6",y:2024,f:"Kouros, Theodoros; Papa, Venetia",t:"Digital Mirrors: AI Companions and the Self",doi:"10.3390/soc14100200"},
+  {s:"s6",y:2024,f:"Zhang, Zhiping; Jia, Michelle; Lee, Hao-Ping (Hank); Yao, Bingsheng; Das, Sauvik; Lerner, Ada; Wang, Dakuo; Li, Tianshi",t:"\u201cIt's a Fair Game\u201d, or Is It? Examining How Users Navigate Disclosure Risks and Benefits When Using LLM-Based Conversational Agents",doi:"10.1145/3613904.3642385"},
+  {s:"s6",y:2024,f:"Arianna Manzini et al.",t:"The Code That Binds Us: Navigating the Appropriateness of Human-AI Assistant Relationships",doi:"10.1609/aies.v7i1.31694"},
+  {s:"s6",y:2024,f:"Canfer Akbulut, Laura Weidinger, Arianna Manzini, Iason Gabriel, and Verena Rieser",t:"All Too Human? Mapping and Mitigating the Risk from Anthropomorphic AI",doi:"10.1609/aies.v7i1.31613"},
+  {s:"s6",y:2024,f:"Henry Shevlin",t:"All too human? Identifying and mitigating ethical risks of Social AI",doi:"10.55092/let20240003"},
+  {s:"s6",y:2025,f:"Ahuvia, Aaron; Brandtzaeg, Petter Bae; Koles, Bernadett; Pagani, Margherita; Malhotra, Arvind; Izberk-Bilgin, Elif; Cacho-Elizondo, Silvia; Sarkar, Mainak; Belk, Russell",t:"Reimagining Human-AI Relationships: A Positive Future for Chatbots, Social AI, and the Phygital Self",doi:"10.1177/02761467251398717"},
+  {s:"s6",y:2025,f:"Chandra, Mohit; Naik, Suchismita; Ford, Denae; Okoli, Ebele; De Choudhury, Munmun; Ershadi, Mahsa; Ramos, Gonzalo; Hernandez, Javier; Bhattacharjee, Ananya; Warreth, Shahed; Suh, Jina",t:"From Lived Experience to Insight: Unpacking the Psychological Risks of Using AI Conversational Agents",doi:"10.1145/3715275.3732063"},
+  {s:"s6",y:2025,f:"Kirk, Hannah Rose; Gabriel, Iason; Summerfield, Chris; Vidgen, Bertie; Hale, Scott A.",t:"Why human\u2013AI relationships need socioaffective alignment",doi:"10.1057/s41599-025-04532-5"},
+  {s:"s6",y:2025,f:"Zhang, Renwen; Li, Han; Meng, Han; Zhan, Jinyuan; Gan, Hongyuan; Lee, Yi-Chieh",t:"The Dark Side of AI Companionship: A Taxonomy of Harmful Algorithmic Behaviors in Human-AI Relationships",doi:"10.1145/3706598.3713429"},
+  {s:"s6",y:2025,f:"Lujain Ibrahim, Franziska Sofia Hafner, and Luc Rocher",t:"Training language models to be warm and empathetic makes them less reliable and more sycophantic",doi:"10.48550/arXiv.2507.21919"},
+  {s:"s6",y:2025,f:"W. B. Knox et al.",t:"Harmful Traits of AI Companions",doi:"10.48550/arXiv.2511.14972"},
+  {s:"s6",y:2025,f:"M. Namvarpour, Harrison Pauwels, and A. Razi",t:"AI-induced sexual harassment: Investigating Contextual Characteristics and User Reactions of Sexual Harassment by a Companion Chatbot",doi:"10.1145/3757548"},
+  {s:"s6",y:2025,f:"Julian De Freitas, Zeliha O. Uguralp, and A. U\u011furalp",t:"Emotional Manipulation by AI Companions",doi:"10.48550/arXiv.2508.19258"},
+  {s:"s6",y:2025,f:"Minh Duc Chu, Patrick Gerard, Kshitij Pawar, Charles Bickham, and Kristina Lerman",t:"Illusions of Intimacy: Emotional Attachment and Emerging Psychological Risks in Human-AI Relationships",doi:"10.48550/arXiv.2505.11649"},
+  {s:"s6",y:2025,f:"Beatrice Marchegiani",t:"Anthropomorphism, False Beliefs, and Conversational AIs: How Chatbots Undermine Users' Autonomy",doi:"10.1111/japp.70008"},
+  {s:"s6",y:2025,f:"James Muldoon and Jul Jeonghyun Parke",t:"Cruel companionship: How AI companions exploit loneliness and commodify intimacy",doi:"10.1177/14614448251395192"},
+  {s:"s6",y:2025,f:"Yaman Yu et al.",t:"Principles of Safe AI Companions for Youth: Parent and Expert Perspectives",doi:"10.48550/arXiv.2510.11185"},
+  {s:"s6",y:2026,f:"Kollig, Faye; Fiesler, Casey",t:"''If it helps then it doesn't matter'': Exploring Non-User Views on Chatbot Companionship through Story Completion",doi:"10.1145/3799445"},
+  {s:"s6",y:2026,f:"Sparrow, Robert; Brown, James",t:"Against Imaginary Friends: Why Digital Companions Are No Solution to Social Isolation",doi:"10.1145/3750037"},
+  {s:"s6",y:2026,f:"Tseng, Emily; Liang, Calvin A",t:"\\`\\`Chat, Should I Leave Him?''  Risks, Rewards, and Roles for AI in Relationship Advice",doi:""},
+  {s:"s6",y:2026,f:"Shi, Yike; Xiao, Qing; Hu, Qing; Shen, Hong; Shen, Hua",t:"The Siren Song of LLMs: How Users Perceive and Respond to Dark Patterns in Large Language Models",doi:"10.1145/3772318.3791149"},
+  {s:"s6",y:2026,f:"Lee, Daisy; Wan, Calvin; Ng, Peggy M. L.; Fung, Yi-Ning; Wu, Nan",t:"Effects of AI Companions\u2019 Sycophancy and Emotional Mimicry on Consumers\u2019 Continuance Intention and Social Wellbeing",doi:"10.1080/10447318.2026.2626809"},
+  {s:"s6",y:2026,f:"Cristina Voinea, Christopher Register, Sebastian Porsdam Mann, Julian Savulescu, and B. Earp",t:"The Sorrows of Young Chatbot Users: Harm and Responsibility in Human-AI Relationships",doi:"10.1007/s11245-026-10371-z"},
+  {s:"s7",y:2020,f:"Charisi, Vicky; Malinverni, Laura; Rubegni, Elisa; Schaper, Marie-Monique",t:"Empowering Children's Critical Reflections on AI, Robotics and Other Intelligent Technologies",doi:"10.1145/3419249.3420090"},
+  {s:"s7",y:2020,f:"Elin A. Bj\u00f6rling, Honson Ling, S. Bhatia, and K. Dziubinski",t:"The Experience and Effect of Adolescent to Robot Stress Disclosure: A Mixed-Methods Exploration",doi:"10.1007/978-3-030-62056-1_50"},
+  {s:"s7",y:2021,f:"Audrey Mariamo, C. Temcheff, Pierre-Majorique L\u00e9ger, S. S\u00e9n\u00e9cal, and M. Lau",t:"Emotional Reactions and Likelihood of Response to Questions Designed for a Mental Health Chatbot Among Adolescents: Experimental Study",doi:"10.2196/24343"},
+  {s:"s7",y:2021,f:"Harith Alani",t:"Chatbots to Support Children in Coping with Online Threats: Socio-technical Requirements",doi:"10.1145/3461778.3462114"},
+  {s:"s7",y:2021,f:"P. Brandtz\u00e6g, M. Skjuve, K. Dysthe, and Asbj\u00f8rn F\u00f8lstad",t:"When the Social Becomes Non-Human: Young People's Perception of Social Support in Chatbots",doi:"10.1145/3411764.3445318"},
+  {s:"s7",y:2021,f:"Elin A. Bj\u00f6rling, Honson Ling, S. Bhatia, and J. Matarrese",t:"Sharing stressors with a social robot prototype: What embodiment do adolescents prefer?",doi:"10.1016/J.IJCCI.2021.100252"},
+  {s:"s7",y:2022,f:"Patr\u00edcia Alves-Oliveira et al.",t:"Robot-mediated interventions for youth mental health",doi:"10.1080/24735132.2022.2101825"},
+  {s:"s7",y:2022,f:"G. Dosovitsky and E. Bunge",t:"Development of a chatbot for depression: adolescent perceptions and recommendations.",doi:"10.1111/camh.12627"},
+  {s:"s7",y:2022,f:"Irene Lopatovska, Olivia Turpin, Jihye Yoon, Diedre Brown, and Laura Vroom",t:"Talk it Out: Teen Reactions to a Supportive Conversational Agent",doi:"10.1002/pra2.615"},
+  {s:"s7",y:2022,f:"Irene Lopatovska et al.",t:"Capturing Teens\u2019 Voice in Designing Supportive Agents",doi:"10.1145/3543829.3543838"},
+  {s:"s7",y:2023,f:"Ruopeng An, Christopher W Byron, Chen Chen, and Xiaoling Xiang",t:"A Field Test of Popular Chatbots\u2019 Responses To Questions Concerning Negative Body Image",doi:"10.4148/2572-1836.1164"},
+  {s:"s7",y:2023,f:"J. Peltola, K. Kaipainen, K. Keinonen, N. Kiuru, and M. Turunen",t:"Developing A Conversational Interface for an ACT-based Online Program: Understanding Adolescents\u2019 Expectations of Conversational Style",doi:"10.1145/3571884.3597142"},
+  {s:"s7",y:2023,f:"Douglas J. Opel, Brent M Kious, and I. Cohen",t:"AI as a Mental Health Therapist for Adolescents.",doi:"10.1001/jamapediatrics.2023.4215"},
+  {s:"s7",y:2023,f:"J. Park, Vivek Singh, and Pamela J. Wisniewski",t:"Supporting Youth Mental and Sexual Health Information Seeking in the Era of Artificial Intelligence (AI) Based Conversational Agents: Current Landscape and Future Directions",doi:"10.2139/ssrn.4601555"},
+  {s:"s7",y:2023,f:"Tony W. Li et al.",t:"Tell Me About It: Adolescent Self-Disclosure with an Online Robot for Mental Health",doi:"10.1145/3568294.3580068"},
+  {s:"s7",y:2024,f:"Young, Jordyn; Jawara, Laala M; Nguyen, Diep N; Daly, Brian; Huh-Yoo, Jina; Razi, Afsaneh",t:"The Role of AI in Peer Support for Young People: A Study of Preferences for Human- and AI-Generated Responses",doi:"10.1145/3613904.3642574"},
+  {s:"s7",y:2024,f:"Nicholas Pratt, Ricky Madhavan, and Jeremy Weleff",t:"Digital Dialogue-How Youth Are Interacting With Chatbots.",doi:"10.1001/jamapediatrics.2024.0084"},
+  {s:"s7",y:2024,f:"Rania Selim, Arunima Basu, Ailin Anto, Thomas Foscht, and A. Eisingerich",t:"Effects of Large Language Model\u2013Based Offerings on the Well-Being of Students: Qualitative Study",doi:"10.2196/64081"},
+  {s:"s7",y:2024,f:"J. Park, Vivek Singh, and Pamela J. Wisniewski",t:"Toward Safe Evolution of Artificial Intelligence (AI) based Conversational Agents to Support Adolescent Mental and Sexual Health Knowledge Discovery",doi:"10.48550/arXiv.2404.03023"},
+  {s:"s7",y:2024,f:"J. Park, Vivek Singh, and Pamela J. Wisniewski",t:"Current Landscape and Future Directions for Mental Health Conversational Agents for Youth: Scoping Review",doi:"10.2196/62758"},
+  {s:"s7",y:2025,f:"Brandtzaeg, Petter Bae; F\u00f8lstad, Asbj\u00f8rn; Skjuve, Marita",t:"Emerging AI individualism: how young people integrate social AI into everyday life",doi:"10.1007/s44382-025-00011-2"},
+  {s:"s7",y:2025,f:"Sharma, Sumita; Klemettil\u00e4, Pauli; Tanaka, Junko",t:"A robot teacher \"is very good for learning, but not for human relationships\": Japanese Children's Critical Perspectives Towards Ethical AI Futures",doi:"10.1145/3706598.3713204"},
+  {s:"s7",y:2025,f:"Robb, Michael B; Mann, Supreet",t:"Talk, Trust and Trade-Offs: How and Why Teens Use AI Companions",doi:""},
+  {s:"s7",y:2025,f:"A. Giovanelli and Katrina D Roundfield",t:"Adolescent Vulnerability to Consumer Chatbots-Artificial Agents and Genuine Risk.",doi:"10.1001/jamanetworkopen.2025.39028"},
+  {s:"s7",y:2025,f:"Apurva Parikh and L. Fochtmann",t:"Assessing adolescents' use of artificial intelligence in psychiatric practice.",doi:"10.1016/s2215-0366(25)00365-7"},
+  {s:"s7",y:2025,f:"Jiayun Ng, Joseph Crawford, J. W. Ng, and Md Saifullah Razali",t:"Developing well-being in young people using generative artificial intelligence (GenAI): a systematic literature review",doi:"10.1108/yc-10-2024-2305"},
+  {s:"s7",y:2025,f:"Ritesh Bhat et al.",t:"Digital companionship or psychological risk? The role of AI characters in shaping youth mental health.",doi:"10.1016/j.ajp.2024.104356"},
+  {s:"s7",y:2025,f:"Siyi Chen and Hanzhe Huo",t:"Human-Machine Differences in Adolescent Emotional Support: A Comparative Study of Responses Between a Real Mother and Four AI Language Models",doi:"10.1145/3768421.3768505"},
+  {s:"s7",y:2025,f:"C. Chan",t:"Would You Trust Your GenAI Chatbot as Your School Therapist? Perspectives and Implications From Teachers and Students",doi:"10.1155/hbe2/8841208"},
+  {s:"s7",y:2025,f:"P. Kim, Yun Xie, and Sujin Yang",t:"\"I am here for you\": How relational conversational AI appeals to adolescents, especially those who are socially and emotionally vulnerable",doi:"10.48550/arXiv.2512.15117"},
+  {s:"s7",y:2025,f:"A. Clark",t:"The Ability of AI Therapy Bots to Set Limits With Distressed Adolescents: Simulation-Based Comparison Study",doi:"10.2196/78414"},
+  {s:"s7",y:2026,f:"Blake, Annabel; Carter, Marcus; Velloso, Eduardo",t:"Restoration, Exploration and Transformation: How Youth Engage Character.AI for Fun, Feels and Finding themselves",doi:"10.1145/3772318.3790508"},
+  {s:"s7",y:2026,f:"Namvarpour, Mohammad; Brofsky, Brandon; Medina, Jessica; Akter, Mamtaj; Razi, Afsaneh",t:"Understanding Teen Overreliance on AI Companion Chatbots Through Self-Reported Reddit Narratives",doi:"10.1145/3772318.3790597"},
+  {s:"s7",y:2026,f:"Meriel Charles et al.",t:"Adolescent Perceptions of an Online Safety Chatbot: Survey Study.",doi:"10.2196/71498"},
+  {s:"s7",y:2026,f:"Xiaoran Sun, Yunqi Wang, and Brandon T. McDaniel",t:"AI companions and adolescent social relationships: Benefits, risks, and bidirectional influences.",doi:"10.1093/cdpers/aadaf009"},
+  {s:"s7",y:2026,f:"S. Monteith et al.",t:"Increasing use of generative artificial intelligence by teenagers.",doi:"10.1192/bjp.2025.10495"},
+  {s:"s7",y:2026,f:"Negin Hashmati, Ther\u00e9se Skoog, M. Obaid, and Thommy Eriksson",t:"Friend or Therapist? A Systematic Literature Review on Chatbots and Mental Health in Young People",doi:"10.1145/3780045.3780052"},
+  {s:"s7",y:null,f:"Potter, Harry; Musk, Elon; Mario, Super; Putin, Vladimir",t:"Character.ai: Young people turning to AI therapist bots",doi:""},
+  {s:"s7",y:null,f:"Faverio, Michelle; Sidoti, Olivia",t:"Teens, Social Media and AI Chatbots 2025",doi:""},
+  {s:"s8",y:2025,f:"Yang, Yuyi; Wang, Chenyu; Xiang, Xiaoling; An, Ruopeng",t:"AI Applications to Reduce Loneliness Among Older Adults: A Systematic Review of Effectiveness and Technologies",doi:"10.3390/healthcare13050446"},
+  {s:"s9",y:2002,f:"Breazeal, Cynthia L.",t:"Designing sociable robots",doi:""},
+  {s:"s9",y:2013,f:"Leite, Iolanda; Martinho, Carlos; Paiva, Ana",t:"Social Robots for Long-Term Interaction: A Survey",doi:"10.1007/s12369-013-0178-y"},
+  {s:"s9",y:2016,f:"F. Burger",t:"Agents Sharing Secrets - Self-disclosure in Long-Term Child-Avatar Interaction",doi:""},
+  {s:"s9",y:2018,f:"C. Sinoo et al.",t:"Friendship with a robot: Children's perception of similarity between a robot's physical and virtual embodiment that supports diabetes self-management.",doi:"10.1016/j.pec.2018.02.008"},
+  {s:"s9",y:2020,f:"Zhou, Li; Gao, Jianfeng; Li, Di; Shum, Heung-Yeung",t:"The Design and Implementation of XiaoIce, an Empathetic Social Chatbot",doi:"10.1162/coli_a_00368"},
+  {s:"s9",y:2023,f:"Woosuk Seo, Chanmo Yang, and Young-Ho Kim",t:"ChaCha: Leveraging Large Language Models to Prompt Children to Share Their Emotions about Personal Events",doi:"10.1145/3613904.3642152"},
+  {s:"s9",y:2025,f:"Yang Ma et al.",t:"Large language model-based socio-emotional companions for children in welfare institutions: Attitudes, needs, and ethical implications",doi:"10.54844/wsr.2025.1078"},
+  {s:"s9",y:2025,f:"Woosuk Seo et al.",t:"Enhancing Pediatric Communication: The Role of an AI-Driven Chatbot in Facilitating Child-Parent-Provider Interaction",doi:"10.1145/3706598.3713134"},
+  {s:"s10",y:2006,f:"Bickmore, Timothy; Schulman, Daniel",t:"The comforting presence of relational agents",doi:"10.1145/1125451.1125568"},
+  {s:"s10",y:2022,f:"Zheng, Qingxiao; Tang, Yiliu; Liu, Yiren; Liu, Weizi; Huang, Yun",t:"UX Research on Conversational Human-AI Interaction: A Literature Review of the ACM Digital Library",doi:"10.1145/3491102.3501855"},
+  {s:"s10",y:2025,f:"Guan, Hui; Jamieson, Jack; Gao, Ge; Yamashita, Naomi",t:"Unpacking Negative Feelings and Perceptual Gaps About Social Interactions with Conversational AI",doi:"10.1145/3706599.3719975"}
 ];
+const secMap=Object.fromEntries(SECS.map(s=>[s.id,s]));
+let active='all';
 
-const secMap = Object.fromEntries(SECS.map(s => [s.id, s]));
-let active = 'all';
-
-function typeLabel(tp) {
-  return { journal: 'Journal article', conference: 'Conference paper', book: 'Book', book_chapter: 'Book chapter', preprint: 'Preprint' }[tp] || tp;
-}
-
-function buildTabs() {
-  const counts = {};
-  P.forEach(p => { counts[p.s] = (counts[p.s] || 0) + 1; });
-  const el = document.getElementById('filter-tabs');
-  el.innerHTML = SECS.map(s => {
-    const n = s.id === 'all' ? P.length : (counts[s.id] || 0);
-    const isA = s.id === active;
-    let style = '';
-    if (isA && s.id !== 'all') style = `background:${s.color};border-color:${s.color};color:white`;
-    else if (isA) style = `background:var(--text);border-color:var(--text);color:white`;
-    return `<button class="ftab${isA ? ' active-all' : ''}" style="${style}" onclick="setActive('${s.id}')">${s.name}<span class="n">${n}</span></button>`;
+function buildTabs(){
+  const counts={};
+  P.forEach(p=>{counts[p.s]=(counts[p.s]||0)+1;});
+  document.getElementById('filter-tabs').innerHTML=SECS.map(s=>{
+    const n=s.id==='all'?P.length:(counts[s.id]||0);
+    const on=s.id===active;
+    let st='';
+    if(on&&s.id!=='all')st=`background:${s.color};border-color:${s.color};color:white`;
+    else if(on)st=`background:var(--text);border-color:var(--text);color:white`;
+    return `<button class="ftab${on?' active':''}" style="${st}" onclick="setA('${s.id}')">${s.name}<span class="n">${n}</span></button>`;
   }).join('');
 }
 
-function setActive(id) { active = id; buildTabs(); render(); }
+function setA(id){active=id;buildTabs();render();}
 
-function render() {
-  const q = (document.getElementById('search').value || '').toLowerCase().trim();
-  const items = P.filter(p => {
-    if (active !== 'all' && p.s !== active) return false;
-    if (!q) return true;
-    return p.t.toLowerCase().includes(q) || p.f.toLowerCase().includes(q) || p.a.toLowerCase().includes(q);
+function render(){
+  const q=(document.getElementById('search').value||'').toLowerCase().trim();
+  const items=P.filter(p=>{
+    if(active!=='all'&&p.s!==active)return false;
+    if(!q)return true;
+    return p.t.toLowerCase().includes(q)||p.f.toLowerCase().includes(q);
   });
+  const meta=document.getElementById('results-meta');
+  if(q)meta.textContent=`${items.length} paper${items.length!==1?'s':''} matching "${q}"`;
+  else if(active==='all')meta.textContent=`${items.length} papers across 10 sections`;
+  else meta.textContent=`${items.length} papers in this section`;
 
-  const meta = document.getElementById('results-meta');
-  if (q) meta.textContent = `${items.length} paper${items.length !== 1 ? 's' : ''} matching "${q}"`;
-  else if (active === 'all') meta.textContent = `${items.length} papers across 9 sections`;
-  else meta.textContent = `${items.length} papers in this section`;
+  const legend=document.getElementById('legend');
+  const cont=document.getElementById('content');
 
-  const legend = document.getElementById('legend');
-  const cont = document.getElementById('content');
-
-  if (active === 'all' && !q) {
-    const counts = {};
-    P.forEach(p => { counts[p.s] = (counts[p.s] || 0) + 1; });
-    legend.innerHTML = `<div class="legend-panel">
-      <div class="legend-title">Sections — click to filter</div>
-      <div class="legend-grid">${SECS.slice(1).map(s =>
-        `<div class="legend-item" onclick="setActive('${s.id}')">
-          <span class="legend-dot" style="background:${s.color}"></span>
-          <span class="legend-text">${s.name}</span>
-          <span class="legend-n">${counts[s.id] || 0}</span>
-        </div>`).join('')}
-      </div></div>`;
-
-    let html = '';
-    SECS.slice(1).forEach(sec => {
-      const grp = items.filter(p => p.s === sec.id);
-      if (!grp.length) return;
-      html += `<div class="section-group">
-        <div class="section-heading">
-          <span class="s-dot" style="background:${sec.color}"></span>
-          <span class="s-name" style="color:${sec.color}">${sec.name}</span>
-          <span class="s-count">${grp.length} papers</span>
-        </div>
-        ${grp.map(p => card(p, false)).join('')}
-      </div>`;
+  if(active==='all'&&!q){
+    const counts={};P.forEach(p=>{counts[p.s]=(counts[p.s]||0)+1;});
+    legend.innerHTML=`<div class="legend-panel"><div class="legend-title">Sections — click to filter</div><div class="legend-grid">${SECS.slice(1).map(s=>`<div class="legend-item" onclick="setA('${s.id}')"><span class="legend-dot" style="background:${s.color}"></span><span class="legend-text">${s.name}</span><span class="legend-n">${counts[s.id]||0}</span></div>`).join('')}</div></div>`;
+    let html='';
+    SECS.slice(1).forEach(sec=>{
+      const grp=items.filter(p=>p.s===sec.id);
+      if(!grp.length)return;
+      html+=`<div class="section-group"><div class="section-heading"><span class="s-dot" style="background:${sec.color}"></span><span class="s-name" style="color:${sec.color}">${sec.name}</span><span class="s-count">${grp.length} papers</span></div>${grp.map(p=>card(p,false)).join('')}</div>`;
     });
-    cont.innerHTML = html;
+    cont.innerHTML=html;
   } else {
-    legend.innerHTML = '';
-    if (!items.length) { cont.innerHTML = '<div class="empty">No papers match your search.</div>'; return; }
-    cont.innerHTML = items.map(p => card(p, true)).join('');
+    legend.innerHTML='';
+    if(!items.length){cont.innerHTML='<div class="empty">No papers match your search.</div>';return;}
+    cont.innerHTML=items.map(p=>card(p,true)).join('');
   }
 }
 
-function card(p, showSec) {
-  const sec = secMap[p.s];
-  const ys = p.y || 'n.d.';
-  return `<div class="paper">
-    <div class="p-accent" style="background:${sec.color}"></div>
-    <div class="p-body">
-      <div class="p-title">${p.t}</div>
-      <div class="p-authors">${p.f}</div>
-      <div class="p-footer">
-        <span class="p-year">${ys}</span>
-        <span class="p-type">${typeLabel(p.tp)}</span>
-        ${showSec ? `<span class="p-sec" style="background:${sec.color}18;color:${sec.color};border:1px solid ${sec.color}30">${sec.name}</span>` : ''}
-      </div>
-    </div>
-  </div>`;
+function card(p,showSec){
+  const sec=secMap[p.s];
+  const yr=p.y||'n.d.';
+  const doiLink=p.doi?`<a class="doi-link" href="https://doi.org/${p.doi}" style="color:${sec.color};background:${sec.color}18;border:1px solid ${sec.color}30" target="_blank">DOI ↗</a>`:'';
+  const secTag=showSec?`<span class="p-sec" style="background:${sec.color}18;color:${sec.color};border:1px solid ${sec.color}30">${sec.name}</span>`:'';
+  return `<div class="paper"><div class="p-accent" style="background:${sec.color}"></div><div class="p-body"><div class="p-title">${p.t}</div><div class="p-authors">${p.f}</div><div class="p-footer"><span class="p-year">${yr}</span>${doiLink}${secTag}</div></div></div>`;
 }
 
 buildTabs();
